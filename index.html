@@ -75,7 +75,7 @@
         };
 
         const t = new Date();
-        const theme = t.getHours() > 7 && t.getHours < 22 ? "w" : "b";
+        const theme = t.getHours() > 7 && t.getHours() < 22 ? "w" : "b";
 
         document.getElementsByTagName("body")[0].style.background = s[theme]["background"];
         document.getElementsByTagName("body")[0].style.color = s[theme]["color"];
