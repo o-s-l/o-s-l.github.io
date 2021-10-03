@@ -49,6 +49,13 @@
     #map {
         position: relative;
     }
+
+    .img {
+        max-width: 200px;
+        max-height: 200px;
+        width: 200px;
+        border-radius: 12px;
+    }
 </style>
 
 <body>
@@ -59,7 +66,7 @@
     </div>
 
     <div id="map" class="map hide-opacity" style="display: none;">
-        <div id="popup"></div>
+
     </div>
 </body>
 <script>
@@ -95,108 +102,31 @@
 
 </script>
 
-<link rel="stylesheet" href="https://openlayers.org/en/v6.8.1/css/ol.css" type="text/css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
 
-<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.8.1/build/ol.js"></script>
-
-<script
-    src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-
-<script
-    src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-
-<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<script src="https://unpkg.com/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
-
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+<script type="text/javascript" src="https://stamen-maps.a.ssl.fastly.net/js/tile.stamen.js?v1.3.0"></script>
 <script>
-    const iconFeature = new ol.Feature({
-        geometry: new ol.geom.Point([43.26043, 76.96372]),
-        name: 'Heart',
-    });
-
-    const iconStyle = new ol.style.Style({
-        image: new ol.style.Icon(/** @type {module:ol/style/Icon~Options} */({
-            anchor: [0.5, 0, 5],
-            anchorXUnits: 'fraction',
-            anchorYUnits: 'pixels',
-            src: 'data/heart.png'
-        }))
-    });
-
-    iconFeature.setStyle(iconStyle);
-
-    const vectorSource = new ol.source.Vector({
-        features: [iconFeature]
-    });
-
-    const vectorLayer = new ol.layer.Vector({
-        source: vectorSource
-    });
-
-    const popupEl = document.getElementById('popup');
+    const uzbekEmbassy = [43.2601481, 76.9637217]
 
     const showPosition = (m) => {
         codeFadeOut();
 
         const initMap = (position) => {
-            console.log(position);
-            m = new ol.Map({
-                target: 'map',
-                layers: [
-                    new ol.layer.Tile({
-                        source: new ol.source.OSM()
-                    }), vectorLayer
-                ],
-                view: new ol.View({
-                    center: ol.proj.fromLonLat([position.coords.longitude, position.coords.latitude]),
-                    zoom: 6
-                }),
+            const layer = new L.StamenTileLayer("toner");
+            const map = new L.Map("map", {
+                center: new L.LatLng(position.coords.latitude, position.coords.longitude),
+                zoom: 13
             });
-
-            const popup = new ol.Overlay({
-                element: popupEl,
-                positioning: 'bottom-center',
-                stopEvent: false,
-                offset: [0, -50]
-            });
-
-            m.addOverlay(popup);
-
-            m.on('click', function (evt) {
-                var feature = m.forEachFeatureAtPixel(evt.pixel,
-                    function (feature) {
-                        return feature;
-                    });
-                if (feature) {
-                    var coordinates = feature.getGeometry().getCoordinates();
-                    popup.setPosition(coordinates);
-                    $(popupEl).popover({
-                        placement: 'top',
-                        html: true,
-                        content: feature.get('name')
-                    });
-                    $(popupEl).popover('show');
-                } else {
-                    $(popupEl).popover('destroy');
-                }
-            });
-
-            // change mouse cursor when over marker
-            m.on('pointermove', function (e) {
-                if (e.dragging) {
-                    $(popupEl).popover('destroy');
-                    return;
-                }
-                var pixel = m.getEventPixel(e.originalEvent);
-                var hit = m.hasFeatureAtPixel(pixel);
-                document.getElementById(m.getTarget()).style.cursor = hit ? 'pointer' : '';
-            });
-
-            console.log(m);
-            return m;
+            map.addLayer(layer);
+            L.marker([51.154209, 71.436301]).addTo(map).bindPopup("<br><img class=\"img\" src=\"https://d2w9rnfcy7mm78.cloudfront.net/13391336/original_498c0b3ea8bb8b3e4f53d38365e19a55.jpg?1633074741?bc=0\"> <br> 26.09.21 8:34 pm");
+            L.marker([43.1319098, 76.582232]).addTo(map).bindPopup("<br><img class=\"img\" src=\"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiIxMzM5MTAzNC9vcmlnaW5hbF9hNTNiNGIwMTA1NzA0MGQzNGMzZThiNDUzMWE4MzgwYi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjIwMDAsImhlaWdodCI6MjAwMCwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwianBlZyI6eyJxdWFsaXR5Ijo5NX0sInJvdGF0ZSI6bnVsbH19\"> <br> 23.08.21 12:49 am");
+            map.setView(new L.LatLng(position.coords.latitude, position.coords.longitudes), 13);
         }
 
         mapFadeIn();
@@ -211,6 +141,12 @@
             navigator.geolocation.getCurrentPosition(showPosition(m));
         } else {
             console.log("Geolocation is not supported by this browser.");
+
+            position = {coords: {
+                latitude: uzbekEmbassy[0],
+                longitude: uzbekEmbassy[1],
+            }}
+            showPosition(m)(position);
         }
 
         return m;
