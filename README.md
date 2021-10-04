@@ -1,6 +1,6 @@
 # o-s-l.github.io
 
 ## dev: 
-`bash
+```bash
 $ http-server .
-`
+````
