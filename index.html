@@ -113,7 +113,8 @@
 <script type="text/javascript" src="https://stamen-maps.a.ssl.fastly.net/js/tile.stamen.js?v1.3.0"></script>
 <script>
     const uzbekEmbassy = [43.2601481, 76.9637217]
-
+    const imgTemplate = ["<br><img class=\"img\" src=\"","\"> <br>"]
+    
     const showPosition = (m) => {
         codeFadeOut();
 
@@ -124,8 +125,16 @@
                 zoom: 13
             });
             map.addLayer(layer);
-            L.marker([51.154209, 71.436301]).addTo(map).bindPopup("<br><img class=\"img\" src=\"https://d2w9rnfcy7mm78.cloudfront.net/13391336/original_498c0b3ea8bb8b3e4f53d38365e19a55.jpg?1633074741?bc=0\"> <br> 26.09.21 8:34 pm");
-            L.marker([43.1319098, 76.582232]).addTo(map).bindPopup("<br><img class=\"img\" src=\"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiIxMzM5MTAzNC9vcmlnaW5hbF9hNTNiNGIwMTA1NzA0MGQzNGMzZThiNDUzMWE4MzgwYi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjIwMDAsImhlaWdodCI6MjAwMCwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwianBlZyI6eyJxdWFsaXR5Ijo5NX0sInJvdGF0ZSI6bnVsbH19\"> <br> 23.08.21 12:49 am");
+            fetch("static/points.json")
+                .then(response => response.json())
+                .then(points => 
+                    points.
+                    points.
+                    forEach(
+                        point => L.
+                            marker([point.lat, point.lon]).
+                            addTo(map).
+                            bindPopup(`${imgTemplate[0]}${point.img}${imgTemplate[1]}${point.desc}}`)))
         }
 
         mapFadeIn();

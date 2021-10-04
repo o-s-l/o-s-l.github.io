@@ -1,0 +1,16 @@
+{
+    "points": [
+        {
+            "lat": 51.154209, 
+            "lon": 71.436301, 
+            "img": "https://d2w9rnfcy7mm78.cloudfront.net/13391336/original_498c0b3ea8bb8b3e4f53d38365e19a55.jpg?1633074741?bc=0", 
+            "desc": "26.09.21 8:34 pm"
+        }, 
+        {
+            "lat": 43.1319098,
+            "lon": 76.582232,
+            "img": "https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiIxMzM5MTAzNC9vcmlnaW5hbF9hNTNiNGIwMTA1NzA0MGQzNGMzZThiNDUzMWE4MzgwYi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjIwMDAsImhlaWdodCI6MjAwMCwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwianBlZyI6eyJxdWFsaXR5Ijo5NX0sInJvdGF0ZSI6bnVsbH19",
+            "desc": "23.08.21 12:49 am"
+        }
+    ]
+}
